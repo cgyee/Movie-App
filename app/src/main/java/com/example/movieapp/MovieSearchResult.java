@@ -1,3 +1,5 @@
+package com.example.movieapp;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;

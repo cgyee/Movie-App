@@ -73,6 +73,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieView> {
     public void onBindViewHolder(final MovieView holder, int position) {
         final MovieView temp = holder;
 
+
        try {
            holder.textView.setText(mData.getJSONObject(position).get("Title").toString());
            ImageRequest imageRequest = new ImageRequest(mData.getJSONObject(position).get("Poster").toString(), new Response.Listener<Bitmap>() {

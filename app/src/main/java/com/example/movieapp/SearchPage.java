@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +31,7 @@ public class SearchPage extends AppCompatActivity {
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         final  String url = "http://www.omdbapi.com/?apikey=ac1faa3e&s=";
+        final Intent intent = new Intent(this, Details.class);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
@@ -46,7 +49,7 @@ public class SearchPage extends AppCompatActivity {
                         try {
                             JSONArray results = response.getJSONArray("Search");
                             System.out.println("1");
-                            MovieAdapter movieAdapter= new MovieAdapter(results);
+                            MovieAdapter movieAdapter= new MovieAdapter(results, intent);
                             recyclerView.setAdapter(movieAdapter);
                         }
                         catch (JSONException e) {

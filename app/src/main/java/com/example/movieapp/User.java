@@ -1,10 +1,15 @@
 package com.example.movieapp;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class User {
     private String email;
-    public ArrayList<Movie> favorites = new ArrayList<Movie>();
+    private ArrayList<Movie> favorites = new ArrayList<Movie>();
 
     public boolean User(String email, String password) {
         //Check if user email exists in db if not create user else return false
@@ -22,5 +27,28 @@ public class User {
             favorites.remove(movie);
         }
     }
+
+    public void saveFavorites() {
+        try {
+            ObjectOutputStream out = new ObjectOutputStream((new FileOutputStream("favorites.dat")));
+            ArrayList<Movie> output = favorites;
+            out.writeObject(output);
+            out.close();
+        }
+        catch (SecurityException | IOException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void loadFavorites() {
+        try {
+            ObjectInputStream inputStream = new ObjectInputStream((new FileInputStream("favorites.dat")));
+            favorites = (ArrayList<Movie>) inputStream.readObject();
+        }
+        catch (SecurityException | IOException |ClassNotFoundException e) {
+            System.out.println(e);
+        }
+    }
+
 
 }

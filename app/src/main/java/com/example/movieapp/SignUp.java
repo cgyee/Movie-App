@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.movieapp.ui.login.LoginActivity;
 
@@ -28,7 +29,11 @@ public class SignUp extends AppCompatActivity {
                 if(db.validEmail(email.getText().toString())) {
                     db.insertNewUser(email.getText().toString(), password.getText().toString());
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    Toast.makeText(getApplicationContext(), "Success please login", Toast.LENGTH_SHORT).show();
                     startActivity(intent);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"Account already exist please log in", Toast.LENGTH_SHORT).show();
                 }
             }
         });

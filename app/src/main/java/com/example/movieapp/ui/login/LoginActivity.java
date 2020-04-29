@@ -27,6 +27,7 @@ import com.example.movieapp.DBHelper;
 import com.example.movieapp.R;
 import com.example.movieapp.SearchPage;
 import com.example.movieapp.SignUp;
+import com.example.movieapp.User;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -49,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(db.validPassword(usernameEditText.getText().toString(), passwordEditText.getText().toString())) {
                     Intent intent = new Intent(getApplicationContext(), SearchPage.class);
+                    intent.putExtra("USER", usernameEditText.getText().toString());
                     Toast.makeText(getApplicationContext(), "Welcome " + usernameEditText.getText().toString(),Toast.LENGTH_LONG).show();
                     startActivity(intent);
                 }

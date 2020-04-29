@@ -1,6 +1,4 @@
 package com.example.movieapp;
-
-import android.content.Context;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -70,7 +68,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieView> {
     }
 
     @Override
-    public void onBindViewHolder(final MovieView holder, int position) {
+    public void onBindViewHolder(final MovieView holder, final int position) {
         final MovieView temp = holder;
 
 
@@ -99,6 +97,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieView> {
            public void onClick(View v) {
 
                tempIntent.putExtra("MOVIE_TITLE", holder.textView.getText().toString());
+               try {
+                   tempIntent.putExtra("POSTER_URL", mData.getJSONObject(position).get("Poster").toString());
+               }
+               catch (JSONException e) {
+                   System.out.println(e);
+               }
                if(tempIntent!=null) {
                    context.startActivity(tempIntent);
                }

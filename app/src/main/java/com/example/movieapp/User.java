@@ -1,19 +1,19 @@
 package com.example.movieapp;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
-
-public class User {
+public class User implements Serializable {
     private String email;
     private ArrayList<Movie> favorites = new ArrayList<Movie>();
 
-    public boolean User(String email, String password) {
+    public User(String email) {
         //Check if user email exists in db if not create user else return false
-        return false;
+        this.email =email;
     }
 
     public void addMovie(String title, String poster_url) {
@@ -28,7 +28,7 @@ public class User {
         }
     }
 
-    public void saveFavorites() {
+    /*public void saveFavorites() {
         try {
             ObjectOutputStream out = new ObjectOutputStream((new FileOutputStream("favorites.dat")));
             ArrayList<Movie> output = favorites;
@@ -38,9 +38,23 @@ public class User {
         catch (SecurityException | IOException e) {
             System.out.println(e);
         }
+    }*/
+
+    public byte [] saveFavorites() {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(byteArrayOutputStream);
+            outputStream.writeObject(this);
+            outputStream.flush();
+            outputStream.close();
+            byteArrayOutputStream.close();
+        } catch (SecurityException | IOException e) {
+            System.out.println(e);
+        }
+        return byteArrayOutputStream.toByteArray();
     }
 
-    public void loadFavorites() {
+    /*private void loadFavorites() {
         try {
             ObjectInputStream inputStream = new ObjectInputStream((new FileInputStream("favorites.dat")));
             favorites = (ArrayList<Movie>) inputStream.readObject();
@@ -50,5 +64,32 @@ public class User {
         }
     }
 
+    public ArrayList<Movie> getFavorites() {
+        if(favorites !=null){
+            return favorites;
+        }
+        else {
+            loadFavorites();
+            return favorites;
+        }
+    }*/
 
+    public void loadFavorites(byte [] object) {
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(object);
+        try {
+            ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+            User temp = (User)objectInputStream.readObject();
+            this.email = temp.getEmail();
+            this.favorites = temp.getFavorites();
+        }
+        catch (IOException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+    }
+
+    public ArrayList<Movie> getFavorites() {
+        return favorites;
+    }
+
+    public String getEmail() { return email;}
 }

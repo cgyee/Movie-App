@@ -13,11 +13,13 @@ public class DBHelper extends SQLiteOpenHelper {
     final static private String USER_COLUMN_ID ="id";
     final static private String USERS_COLUMN_EMAIL = "email";
     final static private String USERS_COLUMN_PASSWORD = "password";
+    final static private String USERS_COLUMN_OBJ = "user_object";
     final static private String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + USERS_TABLE_NAME + "("+
                     USER_COLUMN_ID + " INTEGER PRIMARY KEY," +
                     USERS_COLUMN_EMAIL + " TEXT," +
-                    USERS_COLUMN_PASSWORD + " TEXT" + ")";
+                    USERS_COLUMN_PASSWORD + " TEXT," +
+                    USERS_COLUMN_OBJ + " BLOB" + ")";
     final static private String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + USERS_TABLE_NAME;
 
@@ -42,6 +44,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 new String[] {email},
                 null,null,null );
 
+
         int result = cursor.getCount();
         cursor.close();
         return result == 0 ? true : false;
@@ -65,5 +68,24 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(USERS_COLUMN_EMAIL, email);
         values.put(USERS_COLUMN_PASSWORD, password);
         sqLiteDatabase.insert(USERS_TABLE_NAME, null, values);
+    }
+
+    public void updateFavorites(byte[] user, String email) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(USERS_COLUMN_OBJ, user );
+        sqLiteDatabase.update(USERS_TABLE_NAME, values, email, null);
+    }
+
+    public byte [] getFavorites(String email) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.query(USERS_TABLE_NAME,
+                new String [] {USERS_COLUMN_OBJ},
+                USERS_COLUMN_EMAIL +" = ? ",
+                new String [] {email},
+                null, null,null);
+        cursor.moveToFirst();
+        byte [] result = cursor.getBlob(0);
+        return result;
     }
 }

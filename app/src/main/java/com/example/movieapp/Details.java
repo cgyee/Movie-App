@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,7 +32,10 @@ public class Details extends AppCompatActivity {
         final TextView mDescription = findViewById(R.id.movieDescription);
         final ImageView mPoster = findViewById(R.id.moviePoster);
         final String url = "http://www.omdbapi.com/?apikey=ac1faa3e&t=";
-        String title = getIntent().getStringExtra("MOVIE_TITLE");
+        final String title = getIntent().getStringExtra("MOVIE_TITLE");
+        final String poster = getIntent().getStringExtra("POSTER_URL");
+        final  String email = getIntent().getStringExtra("EMAILs");
+        final DBHelper dbHelper = new DBHelper(getApplicationContext());
         mTitle.setText(title);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url+title.replaceAll(" ", "_").toLowerCase(), null, new Response.Listener<JSONObject>() {
@@ -63,5 +68,18 @@ public class Details extends AppCompatActivity {
             }
         });
         MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+
+        Button favoriteButton = findViewById(R.id.favoriteMovie);
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                User user = new User("temp");
+                user.addMovie(title, poster);
+                user.saveFavorites();
+                dbHelper.updateFavorites(user.saveFavorites(), email);
+
+            }
+        });
+
     }
 }

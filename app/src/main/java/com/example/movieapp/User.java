@@ -22,9 +22,13 @@ public class User implements Serializable {
         }
     }
 
-    public void removeMovie(Movie movie) {
+    public boolean removeMovie(Movie movie) {
         if(favorites.contains(movie)) {
             favorites.remove(movie);
+            return true;
+        }
+        else {
+            return false;
         }
     }
 

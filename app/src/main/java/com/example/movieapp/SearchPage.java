@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -15,9 +17,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class SearchPage extends AppCompatActivity {
@@ -35,10 +34,10 @@ public class SearchPage extends AppCompatActivity {
 
         final Intent getIntent = getIntent();
         final User user = new User(getIntent.getStringExtra("USER"));
-        intent.putExtra("EMAIL", getIntent.getStringArrayExtra("USER"));
+        intent.putExtra("EMAIL", user.getEmail());
 
 
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(layoutManager);
         MovieAdapter movieAdapter= new MovieAdapter();
         recyclerView.setAdapter(movieAdapter);
@@ -71,7 +70,7 @@ public class SearchPage extends AppCompatActivity {
             }
         });
 
-        Button favoritesButton = findViewById(R.id.favButtons);
+        Button favoritesButton = findViewById(R.id.favButton);
         favoritesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

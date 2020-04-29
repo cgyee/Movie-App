@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -30,11 +31,15 @@ public class Details extends AppCompatActivity {
 
         final TextView mTitle = findViewById(R.id.Title);
         final TextView mDescription = findViewById(R.id.movieDescription);
+        final TextView mDirector = findViewById(R.id.director);
+        final TextView mYear = findViewById(R.id.year);
+        final TextView mRating = findViewById(R.id.rating);
+        final TextView mGenre = findViewById(R.id.genre);
         final ImageView mPoster = findViewById(R.id.moviePoster);
         final String url = "http://www.omdbapi.com/?apikey=ac1faa3e&t=";
         final String title = getIntent().getStringExtra("MOVIE_TITLE");
         final String poster = getIntent().getStringExtra("POSTER_URL");
-        final  String email = getIntent().getStringExtra("EMAILs");
+        final  String email = getIntent().getStringExtra("EMAIL");
         final DBHelper dbHelper = new DBHelper(getApplicationContext());
         mTitle.setText(title);
 
@@ -43,6 +48,10 @@ public class Details extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     mDescription.setText(response.get("Plot").toString());
+                    mDirector.setText("Director: " + response.get("Director").toString());
+                    mYear.setText("Released: " + response.get("Released").toString());
+                    mRating.setText("Rated: " + response.get("Rated").toString());
+                    mGenre.setText("Genre: " + response.get("Genre").toString());
                     ImageRequest imageRequest = new ImageRequest(response.get("Poster").toString(), new Response.Listener<Bitmap>() {
                         @Override
                         public void onResponse(Bitmap response) {
@@ -73,10 +82,17 @@ public class Details extends AppCompatActivity {
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User user = new User("temp");
-                user.addMovie(title, poster);
-                user.saveFavorites();
-                dbHelper.updateFavorites(user.saveFavorites(), email);
+                User user = new User(email);
+                user.loadFavorites(dbHelper.getFavorites(email));
+
+                if(user.removeMovie(new Movie(title, poster))) {
+                    Toast.makeText(getApplicationContext(), "Movie Removed from Favorites", Toast.LENGTH_SHORT);
+                    dbHelper.updateFavorites(user.saveFavorites(), email);
+                }
+                else {
+                    user.addMovie(title, poster);
+                    dbHelper.updateFavorites(user.saveFavorites(), email);
+                }
 
             }
         });

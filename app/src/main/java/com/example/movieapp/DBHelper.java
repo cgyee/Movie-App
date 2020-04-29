@@ -52,11 +52,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public  Boolean validPassword(String email, String password) {
         SQLiteDatabase sqLiteDatabase =this.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.query(USERS_TABLE_NAME,
+        Cursor cursor = sqLiteDatabase.query(
+                USERS_TABLE_NAME,
                 new String[] {USERS_COLUMN_EMAIL, USERS_COLUMN_PASSWORD},
                 USERS_COLUMN_EMAIL +" = ?"+" AND "+ USERS_COLUMN_PASSWORD + " = ?",
                 new String[] { email, password},
                 null, null, null);
+
         int result = cursor.getCount();
         cursor.close();
         return result !=0 ? true:false;
@@ -74,18 +76,36 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(USERS_COLUMN_OBJ, user );
-        sqLiteDatabase.update(USERS_TABLE_NAME, values, email, null);
+        sqLiteDatabase.update(
+                USERS_TABLE_NAME,
+                values,
+                USERS_COLUMN_EMAIL + " = ? ",
+                new String[] {email});
     }
 
     public byte [] getFavorites(String email) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.query(USERS_TABLE_NAME,
+        Cursor cursor = sqLiteDatabase.query(
+                USERS_TABLE_NAME,
                 new String [] {USERS_COLUMN_OBJ},
                 USERS_COLUMN_EMAIL +" = ? ",
                 new String [] {email},
                 null, null,null);
+
         cursor.moveToFirst();
         byte [] result = cursor.getBlob(0);
         return result;
+    }
+
+    public void updatePassword(String email, String password) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(USERS_COLUMN_EMAIL, email);
+        values.put(USERS_COLUMN_PASSWORD, password);
+        sqLiteDatabase.update(
+                USERS_TABLE_NAME,
+                values,
+                USERS_COLUMN_EMAIL +" = ?" + " AND " + USERS_COLUMN_PASSWORD + " = ?",
+                new String[] {email, password});
     }
 }

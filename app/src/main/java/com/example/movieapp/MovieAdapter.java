@@ -1,10 +1,9 @@
 package com.example.movieapp;
-
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -21,12 +20,12 @@ import com.android.volley.toolbox.ImageRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.io.InputStream;
-import java.net.URL;
+
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieView> {
     private JSONArray mData;
     private Context context;
+    private Intent intent;
 
     public class MovieView extends RecyclerView.ViewHolder {
         TextView textView;
@@ -37,7 +36,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieView> {
         }
     }
 
-    public  MovieAdapter(JSONArray data) { mData = data;}
+    public  MovieAdapter(JSONArray data, Intent intent) { mData = data; this.intent = intent;}
     public MovieAdapter() {mData=null;}
 
     @Override
@@ -61,16 +60,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieView> {
 
         layout.addView(text, params);
 
+        this.context = parent.getContext();
         MovieView mv = new MovieView(layout);
         mv.textView = text;
         mv.imageButton = image;
-        this.context = parent.getContext();
         return  mv;
     }
 
     @Override
-    public void onBindViewHolder(MovieView holder, int position) {
+    public void onBindViewHolder(final MovieView holder, final int position) {
         final MovieView temp = holder;
+
 
        try {
            holder.textView.setText(mData.getJSONObject(position).get("Title").toString());
@@ -91,6 +91,23 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieView> {
        catch (JSONException e){
            System.out.println("MV Image");
        }
+       final Intent tempIntent = this.intent;
+       holder.imageButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+
+               tempIntent.putExtra("MOVIE_TITLE", holder.textView.getText().toString());
+               try {
+                   tempIntent.putExtra("POSTER_URL", mData.getJSONObject(position).get("Poster").toString());
+               }
+               catch (JSONException e) {
+                   System.out.println(e);
+               }
+               if(tempIntent!=null) {
+                   context.startActivity(tempIntent);
+               }
+           }
+       });
     }
 
     @Override

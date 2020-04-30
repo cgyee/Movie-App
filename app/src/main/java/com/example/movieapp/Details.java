@@ -86,11 +86,12 @@ public class Details extends AppCompatActivity {
                 user.loadFavorites(dbHelper.getFavorites(email));
 
                 if(user.removeMovie(new Movie(title, poster))) {
-                    Toast.makeText(getApplicationContext(), "Movie Removed from Favorites", Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(), "Movie Removed from Favorites", Toast.LENGTH_SHORT).show();
                     dbHelper.updateFavorites(user.saveFavorites(), email);
                 }
                 else {
                     user.addMovie(title, poster);
+                    Toast.makeText(getApplicationContext(), "Movie added to Favorites", Toast.LENGTH_SHORT).show();
                     dbHelper.updateFavorites(user.saveFavorites(), email);
                 }
 

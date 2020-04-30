@@ -79,15 +79,17 @@ public class User implements Serializable {
     }*/
 
     public void loadFavorites(byte [] object) {
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(object);
-        try {
-            ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
-            User temp = (User)objectInputStream.readObject();
-            this.email = temp.getEmail();
-            this.favorites = temp.getFavorites();
-        }
-        catch (IOException | ClassNotFoundException e) {
-            System.out.println(e);
+        if(object !=null) {
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(object);
+            try {
+                ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+                User temp = (User)objectInputStream.readObject();
+                this.email = temp.getEmail();
+                this.favorites = temp.getFavorites();
+            }
+            catch (IOException | ClassNotFoundException e) {
+                System.out.println(e);
+            }
         }
     }
 

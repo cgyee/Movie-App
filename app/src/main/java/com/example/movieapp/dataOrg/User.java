@@ -1,4 +1,4 @@
-package com.example.movieapp;
+package com.example.movieapp.dataOrg;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -7,6 +7,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+
+/**
+ * Organizes user data and Movie objects
+ */
 public class User implements Serializable {
     private String email;
     private ArrayList<Movie> favorites = new ArrayList<Movie>();

@@ -1,4 +1,4 @@
-package com.example.movieapp;
+package com.example.movieapp.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,18 +7,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.movieapp.dbaccess.DBHelper;
+import com.example.movieapp.dataOrg.Movie;
+import com.example.movieapp.dataOrg.MySingleton;
+import com.example.movieapp.R;
+import com.example.movieapp.dataOrg.User;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * Java code logic related to the activity_search_page.xml
+ */
 public class SearchPage extends AppCompatActivity {
 
     @Override

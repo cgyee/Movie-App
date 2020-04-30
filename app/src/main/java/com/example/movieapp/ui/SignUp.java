@@ -1,4 +1,4 @@
-package com.example.movieapp;
+package com.example.movieapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,8 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.movieapp.ui.login.LoginActivity;
+import com.example.movieapp.dbaccess.DBHelper;
+import com.example.movieapp.R;
 
+/**
+ * Java code logic related to the activity_sign_up.xml
+ */
 public class SignUp extends AppCompatActivity {
 
     @Override

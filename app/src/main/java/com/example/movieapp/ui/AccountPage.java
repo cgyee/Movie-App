@@ -1,18 +1,20 @@
-package com.example.movieapp;
+package com.example.movieapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.movieapp.ui.login.LoginActivity;
+import com.example.movieapp.dbaccess.DBHelper;
+import com.example.movieapp.R;
 import com.google.android.material.textfield.TextInputEditText;
 
+/**
+ * Java code logic related to the activity_account_page.xml
+ */
 public class AccountPage extends AppCompatActivity {
 
     @Override

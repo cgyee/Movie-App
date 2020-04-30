@@ -1,13 +1,11 @@
-package com.example.movieapp;
+package com.example.movieapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,11 +15,18 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.movieapp.dbaccess.DBHelper;
+import com.example.movieapp.dataOrg.Movie;
+import com.example.movieapp.dataOrg.MySingleton;
+import com.example.movieapp.R;
+import com.example.movieapp.dataOrg.User;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Java code logic related to the activity_detail.xml
+ */
 public class Details extends AppCompatActivity {
 
     @Override

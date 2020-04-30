@@ -1,10 +1,12 @@
-package com.example.movieapp;
+package com.example.movieapp.dataOrg;
 
 
 import androidx.annotation.Nullable;
-
 import java.io.Serializable;
 
+/**
+ * Object holds the title and poster url of a movie
+ */
 public class Movie implements Serializable{
     private String title;
     private String poster_url;

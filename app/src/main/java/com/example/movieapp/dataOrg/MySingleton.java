@@ -1,4 +1,4 @@
-package com.example.movieapp;
+package com.example.movieapp.dataOrg;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,6 +9,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
+/**
+ * Used to make JSONrequests
+ */
 public class MySingleton {
     private static MySingleton instance;
     private RequestQueue requestQueue;

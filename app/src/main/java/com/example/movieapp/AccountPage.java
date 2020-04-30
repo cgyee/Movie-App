@@ -36,14 +36,16 @@ public class AccountPage extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Please enter in your new Email/Password" +
                                     " then select Confirm",
                             Toast.LENGTH_LONG);
+
+                    final String oldEmail = accountEmail.getText().toString();
+                    final String oldPassword = accountPassword.getText().toString();
                     confirm.setEnabled(true);
                     confirm.setVisibility(View.VISIBLE);
-
                     confirm.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             if(dbHelper.validEmail(accountEmail.getText().toString())) {
-                                dbHelper.updateAccount(accountEmail.getText().toString(), accountPassword.getText().toString());
+                                dbHelper.updateAccount(oldEmail, oldPassword, accountEmail.getText().toString(), accountPassword.getText().toString());
 
                                 Toast.makeText(getApplicationContext(), "Account info changed!",
                                         Toast.LENGTH_SHORT);

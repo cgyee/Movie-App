@@ -97,6 +97,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieView> {
            public void onClick(View v) {
 
                tempIntent.putExtra("MOVIE_TITLE", holder.textView.getText().toString());
+               tempIntent.putExtra("EMAIL", intent.getStringExtra("EMAIL"));
                try {
                    tempIntent.putExtra("POSTER_URL", mData.getJSONObject(position).get("Poster").toString());
                }

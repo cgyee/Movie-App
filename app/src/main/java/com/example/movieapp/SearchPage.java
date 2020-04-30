@@ -94,5 +94,15 @@ public class SearchPage extends AppCompatActivity {
             }
         });
 
+        Button accountButton = findViewById(R.id.accountButton);
+        accountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent accountIntent = new Intent(getApplicationContext(), AccountPage.class);
+                accountIntent.putExtra("EMAIL", user.getEmail());
+                startActivity(accountIntent);
+            }
+        });
+
     }
 }

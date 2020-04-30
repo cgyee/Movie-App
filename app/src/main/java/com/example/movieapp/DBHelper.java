@@ -108,4 +108,25 @@ public class DBHelper extends SQLiteOpenHelper {
                 USERS_COLUMN_EMAIL +" = ?" + " AND " + USERS_COLUMN_PASSWORD + " = ?",
                 new String[] {email, password});
     }
+
+    public void updateAccount(String email, String password) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(USERS_COLUMN_EMAIL, email);
+        values.put(USERS_COLUMN_PASSWORD, password);
+        sqLiteDatabase.update(
+                USERS_TABLE_NAME,
+                values,
+                USERS_COLUMN_EMAIL +" = ?" + " AND " + USERS_COLUMN_PASSWORD + " = ?",
+                new String[] {email, password});
+    }
+
+    public void deleteAccount(String email, String password) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        sqLiteDatabase.delete(USERS_TABLE_NAME,
+                USERS_COLUMN_EMAIL +  " = ?" + " AND " +
+                USERS_COLUMN_PASSWORD + " = ?",
+                new String[] {email, password});
+    }
 }

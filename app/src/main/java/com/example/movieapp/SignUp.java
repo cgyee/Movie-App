@@ -20,9 +20,11 @@ public class SignUp extends AppCompatActivity {
 
         final EditText email =  findViewById(R.id.accountEmail);
         final EditText password = findViewById(R.id.accountPassword);
-        final Button registerButton = findViewById(R.id.register);
         final DBHelper db = new DBHelper(getApplicationContext());
 
+        //If clicked check the db if the email is valid, if valid create a new entry in db, display message and redirect to login activity
+        //Else display error message
+        Button registerButton = findViewById(R.id.register);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

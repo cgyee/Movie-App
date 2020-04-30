@@ -39,10 +39,12 @@ public class Details extends AppCompatActivity {
         final String url = "http://www.omdbapi.com/?apikey=ac1faa3e&t=";
         final String title = getIntent().getStringExtra("MOVIE_TITLE");
         final String poster = getIntent().getStringExtra("POSTER_URL");
-        final  String email = getIntent().getStringExtra("EMAIL");
+        final String email = getIntent().getStringExtra("EMAIL");
         final DBHelper dbHelper = new DBHelper(getApplicationContext());
+
         mTitle.setText(title);
 
+        //Send a JSON request for information related to the movie found in String email and set the information to the related components
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url+title.replaceAll(" ", "_").toLowerCase(), null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -78,6 +80,7 @@ public class Details extends AppCompatActivity {
         });
         MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
 
+        //If clicked either add or remove Movie object from ArrayList favorites and display the relevant message
         Button favoriteButton = findViewById(R.id.favoriteMovie);
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override

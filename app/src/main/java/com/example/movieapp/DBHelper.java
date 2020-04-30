@@ -35,7 +35,6 @@ public class DBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
         onCreate(sqLiteDatabase);
     }
-
     /**
      *Returns whether the String email does not already exists in the database
      * @param email a String to check against the database to see if the string exists

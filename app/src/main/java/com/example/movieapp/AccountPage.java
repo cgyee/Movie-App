@@ -98,6 +98,9 @@ public class AccountPage extends AppCompatActivity {
                         }
                     });
                 }
+                else {
+                    Toast.makeText(getApplicationContext(), "Please enter a valid email and password associated with the account", Toast.LENGTH_LONG).show();
+                }
             }
         });
 

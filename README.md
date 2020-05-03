@@ -1,3 +1,3 @@
 # Movie-App
 Movie App Project for Mobile Apps 
-User can Loogn/Create Account and Find/Favorite their favorite movie titles.
+User can Login/Create Account and Find/Favorite their favorite movie titles.

@@ -1,4 +1,4 @@
-package com.example.movieapp;
+package com.example.movieapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,8 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.movieapp.ui.login.LoginActivity;
+import com.example.movieapp.dbaccess.DBHelper;
+import com.example.movieapp.R;
 
+/**
+ * Java code logic related to the activity_sign_up.xml
+ */
 public class SignUp extends AppCompatActivity {
 
     @Override
@@ -20,9 +24,11 @@ public class SignUp extends AppCompatActivity {
 
         final EditText email =  findViewById(R.id.accountEmail);
         final EditText password = findViewById(R.id.accountPassword);
-        final Button registerButton = findViewById(R.id.register);
         final DBHelper db = new DBHelper(getApplicationContext());
 
+        //If clicked check the db if the email is valid, if valid create a new entry in db, display message and redirect to login activity
+        //Else display error message
+        Button registerButton = findViewById(R.id.register);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

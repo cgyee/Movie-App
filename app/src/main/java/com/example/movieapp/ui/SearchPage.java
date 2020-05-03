@@ -1,4 +1,4 @@
-package com.example.movieapp;
+package com.example.movieapp.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,25 +7,33 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.movieapp.dbaccess.DBHelper;
+import com.example.movieapp.dataOrg.Movie;
+import com.example.movieapp.dataOrg.MySingleton;
+import com.example.movieapp.R;
+import com.example.movieapp.dataOrg.User;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * Java code logic related to the activity_search_page.xml
+ */
 public class SearchPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_search_page);
-
         super.onCreate(savedInstanceState);
+
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         final  String url = "http://www.omdbapi.com/?apikey=ac1faa3e&s=";
@@ -36,12 +44,14 @@ public class SearchPage extends AppCompatActivity {
         final User user = new User(getIntent.getStringExtra("USER"));
         intent.putExtra("EMAIL", user.getEmail());
 
-
+        //Setting up recyclerView
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(layoutManager);
         MovieAdapter movieAdapter= new MovieAdapter();
         recyclerView.setAdapter(movieAdapter);
 
+        //If searchButton is clicked send a JSONrequest for the text in searchText TextView and
+        // update the recyclerView with the results
         Button searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +80,8 @@ public class SearchPage extends AppCompatActivity {
             }
         });
 
+        //If the favButton is clicked get the current User favorites from the database and
+        //update the recyclerView with the results
         Button favoritesButton = findViewById(R.id.favButton);
         favoritesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +106,7 @@ public class SearchPage extends AppCompatActivity {
             }
         });
 
+        //If the accountButton is selected start the account_page activity
         Button accountButton = findViewById(R.id.accountButton);
         accountButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,4 +1,4 @@
-package com.example.movieapp;
+package com.example.movieapp.dbaccess;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-
+/**
+ * Database Access
+ */
 public class DBHelper extends SQLiteOpenHelper {
     final static private String DATABASE_NAME = "My.db";
     final static private String USERS_TABLE_NAME = "Users";
@@ -35,7 +37,6 @@ public class DBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
         onCreate(sqLiteDatabase);
     }
-
     /**
      *Returns whether the String email does not already exists in the database
      * @param email a String to check against the database to see if the string exists

@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.login;
+package com.example.movieapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,11 +11,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.movieapp.DBHelper;
+import com.example.movieapp.dbaccess.DBHelper;
 import com.example.movieapp.R;
-import com.example.movieapp.SearchPage;
-import com.example.movieapp.SignUp;
 
+/**
+ * Java code logic related to the activity_login.xml
+ */
 public class LoginActivity extends AppCompatActivity {
 
 

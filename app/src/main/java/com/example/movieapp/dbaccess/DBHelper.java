@@ -40,7 +40,7 @@ public class DBHelper extends SQLiteOpenHelper {
     /**
      *Returns whether the String email does not already exists in the database
      * @param email a String to check against the database to see if the string exists
-     * @return  if String email does not exists in database
+     * @return  True if the String email does not exist in the database, Else false
      */
     public boolean validEmail(String email) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -60,7 +60,7 @@ public class DBHelper extends SQLiteOpenHelper {
      *Return whether the String email and String Password are valid in the database
      * @param email String used to validate email in database table
      * @param password String used to validate password in database table
-     * @return If String email and String password is valid in the database
+     * @return True if String email and String password is valid in the database
      */
     public  Boolean validPassword(String email, String password) {
         SQLiteDatabase sqLiteDatabase =this.getReadableDatabase();

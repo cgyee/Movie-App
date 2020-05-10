@@ -85,7 +85,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieView> {
     /**
      * Following code sets the information for the MovieView Components in the recyclerView
      * @param holder MovieVIew to edit
-     * @param position Position of the MovieView in the recylcerView we are changing
+     * @param position Position of the MovieView in the recylcerView that is changing
      */
     @Override
     public void onBindViewHolder(final MovieView holder, final int position) {

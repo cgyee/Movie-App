@@ -99,4 +99,12 @@ public class User implements Serializable {
      * @return email
      */
     public String getEmail() { return email;}
+
+    /**
+     * Check Favorites for a Movie
+     * @ return boolean if the the Movie is in the ArrayList
+     */
+    public boolean contains(String title, String poster) {
+        return favorites.contains(new Movie(title, poster));
+    }
 }

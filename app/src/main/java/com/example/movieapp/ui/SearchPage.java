@@ -62,18 +62,17 @@ public class SearchPage extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             JSONArray results = response.getJSONArray("Search");
-                            System.out.println("1");
                             MovieAdapter movieAdapter= new MovieAdapter(results, intent);
                             recyclerView.setAdapter(movieAdapter);
                         }
                         catch (JSONException e) {
-                            System.out.println("2");
+                            System.out.println(e);
                         }
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println("3");
+                        System.out.println(error);
                     }
                 });
                 MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);

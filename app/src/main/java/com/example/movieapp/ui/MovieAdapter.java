@@ -108,7 +108,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieView> {
            MySingleton.getInstance(this.context).addToRequestQueue(imageRequest);
        }
        catch (JSONException e){
-           System.out.println("MV Image");
+           System.out.println(e);
        }
 
        //Defining a a listener and intents to start new activity when selected for each MovieView

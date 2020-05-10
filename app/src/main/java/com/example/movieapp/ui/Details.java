@@ -5,10 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -23,6 +23,9 @@ import com.example.movieapp.dataOrg.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Java code logic related to the activity_detail.xml
@@ -45,8 +48,10 @@ public class Details extends AppCompatActivity {
         final String title = getIntent().getStringExtra("MOVIE_TITLE");
         final String poster = getIntent().getStringExtra("POSTER_URL");
         final String email = getIntent().getStringExtra("EMAIL");
+        final User user = new User(email);
         final DBHelper dbHelper = new DBHelper(getApplicationContext());
 
+        user.loadFavorites(dbHelper.getFavorites(email));
         mTitle.setText(title);
 
         //Send a JSON request for information related to the movie found in String email and set the information to the related components
@@ -68,29 +73,33 @@ public class Details extends AppCompatActivity {
                             new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                   mPoster.setImageResource(R.drawable.ic_launcher_background);
+                                    mPoster.setImageResource(R.drawable.ic_launcher_background);
                                 }
                             });
                     MySingleton.getInstance(getApplicationContext()).addToRequestQueue(imageRequest);
                 }
                 catch (JSONException e) {
-                    System.out.println("2");
+                    System.out.println(e);
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("3");
+                System.out.println(error);
             }
         });
         MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
 
         //If clicked either add or remove Movie object from ArrayList favorites and display the relevant message
-        Button favoriteButton = findViewById(R.id.favoriteMovie);
+        ToggleButton favoriteButton = findViewById(R.id.favoriteMovie);
+        if(user.contains(title, poster)) {
+            favoriteButton.setChecked(true);
+            //favoriteButton.setTextOff("UnFavorite");
+        }
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User user = new User(email);
+                //User user = new User(email);
                 user.loadFavorites(dbHelper.getFavorites(email));
 
                 if(user.removeMovie(new Movie(title, poster))) {

@@ -37,7 +37,7 @@ public class Movie implements Serializable{
     /**
      * Overrode the equals function for the Movie object so that if a movie exists in a list array it can be removed
      * @param obj Movie Object
-     * @return id the two objects have the same contents
+     * @return True if the two objects have the same contents, Else false
      */
     @Override
     public boolean equals(@Nullable Object obj) {

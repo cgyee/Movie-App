@@ -36,7 +36,7 @@ public class SearchPage extends AppCompatActivity {
 
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        final  String url = "http://www.omdbapi.com/?apikey=ac1faa3e&s=";
+        final  String url = "https://www.omdbapi.com/?apikey=ac1faa3e&s=";
         final Intent intent = new Intent(this, Details.class);
         final DBHelper dbHelper = new DBHelper(getApplicationContext());
 

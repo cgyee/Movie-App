@@ -44,7 +44,7 @@ public class Details extends AppCompatActivity {
         final TextView mRating = findViewById(R.id.rating);
         final TextView mGenre = findViewById(R.id.genre);
         final ImageView mPoster = findViewById(R.id.moviePoster);
-        final String url = "http://www.omdbapi.com/?apikey=ac1faa3e&t=";
+        final String url = "https://www.omdbapi.com/?apikey=ac1faa3e&t=";
         final String title = getIntent().getStringExtra("MOVIE_TITLE");
         final String poster = getIntent().getStringExtra("POSTER_URL");
         final String email = getIntent().getStringExtra("EMAIL");

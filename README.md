@@ -17,3 +17,5 @@ minSdkVersion – 15
 targetSdkVersion – 29
 
 Volley - https://developer.android.com/training/volley
+
+API used - omdbapi.com
